@@ -11,29 +11,25 @@
 int main(int argc, char *argv[])
 {
 	FILE *fptr;
-	size_t count = 0;
+	size_t count;
 	ssize_t line;
 	char *buffer = NULL;
 
+
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-		return (1);
+		fprintf(stderr, "Usage: factor <filename>\n");
+		exit(EXIT_FAILURE);
 	}
-
 	fptr = fopen(argv[1], "r");
-
 	if (fptr == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		return (1);
+		fprintf(stderr, "Error: can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
 	}
 	while ((line = getline(&buffer, &count, fptr)) != -1)
 	{
 		factorize_number(buffer);
 	}
-
-	free(buffer);
-	fclose(fptr);
 	return (0);
 }
